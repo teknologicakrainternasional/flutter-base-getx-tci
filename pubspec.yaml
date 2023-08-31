@@ -42,6 +42,7 @@ dependencies:
   dartz: ^0.10.1
   flutter_alice: ^1.1.1
   overlay_support: ^2.1.0
+  formz: ^0.6.0
 
 dev_dependencies:
   flutter_test:

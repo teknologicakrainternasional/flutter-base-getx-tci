@@ -1,6 +1,6 @@
 import 'package:base_flutter_tci/_core/constants/app_page.dart';
 import 'package:base_flutter_tci/_core/initial_binding.dart';
-import 'package:base_flutter_tci/_core/translations/app_translation.dart';
+import 'package:base_flutter_tci/_core/translations/_app_translation.dart';
 import 'package:base_flutter_tci/_core/utils/alice_get_connect.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

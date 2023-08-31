@@ -6,7 +6,7 @@ class AppErrorMessage{
     "parsing_data_exception": "An error occurred while parsing the data.",
   };
   static const translation = {
-    'en_US': AppErrorMessage.en,
-    'id_ID': AppErrorMessage.id,
+    'en_US': en,
+    'id_ID': id,
   };
 }

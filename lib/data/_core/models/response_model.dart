@@ -18,11 +18,13 @@ class ResponseModel<T> {
 
   /// Constructor for [ResponseModel] from json data
   /// An [AppException.parsingData] will be thrown when error while parsing json
-  ResponseModel.fromJson(dynamic json, T Function(dynamic) fromJsonData) {
-    try{
+  ResponseModel.fromJson(dynamic json, [T Function(dynamic)? fromJsonData]) {
+    try {
       _status = json['status'];
       _message = json['message'];
-      _data = json['data'] != null ? fromJsonData(json['data']) : null;
+      if (fromJsonData != null) {
+        _data = json['data'] != null ? fromJsonData(json['data']) : null;
+      }
       _meta = json['meta'] != null ? MetaModel.fromJson(json['meta']) : null;
       if (json['errors'] != null) {
         _errors = [];
@@ -30,7 +32,7 @@ class ResponseModel<T> {
           _errors?.add(ErrorModel.fromJson(v));
         });
       }
-    }catch(e, s){
+    } catch (e, s) {
       logger.e("ResponseModel.fromJson", error: e, stackTrace: s);
       throw const AppException.parsingData();
     }
@@ -42,21 +44,21 @@ class ResponseModel<T> {
   MetaModel? _meta;
   List<ErrorModel>? _errors;
 
-  bool get status => _status??false;
+  bool get status => _status ?? false;
 
-  String get message => _message??'';
+  String get message => _message ?? '';
 
   T? get data => _data;
 
-  MetaModel get meta => _meta??MetaModel();
+  MetaModel get meta => _meta ?? MetaModel();
 
-  List<ErrorModel> get errors => _errors??[];
+  List<ErrorModel> get errors => _errors ?? [];
 
-  Map<String, dynamic> toJson(Map<String, dynamic> Function(T?) toJsonData) {
+  Map<String, dynamic> toJson([Map<String, dynamic> Function(T?)? toJsonData]) {
     final map = <String, dynamic>{};
     map['status'] = _status;
     map['message'] = _message;
-    if (data != null) {
+    if (data != null && toJsonData != null) {
       map['data'] = toJsonData(data);
     }
     if (_meta != null) {
@@ -86,9 +88,9 @@ class ErrorModel {
   String? _attribute;
   String? _text;
 
-  String get attribute => _attribute??'';
+  String get attribute => _attribute ?? '';
 
-  String get text => _text??'';
+  String get text => _text ?? '';
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -127,15 +129,15 @@ class MetaModel {
   int? _currentPage;
   int? _totalPage;
 
-  int get count => _count??0;
+  int get count => _count ?? 0;
 
-  int get total => _total??0;
+  int get total => _total ?? 0;
 
-  int get perPage => _perPage??0;
+  int get perPage => _perPage ?? 0;
 
-  int get currentPage => _currentPage??0;
+  int get currentPage => _currentPage ?? 0;
 
-  int get totalPage => _totalPage??0;
+  int get totalPage => _totalPage ?? 0;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

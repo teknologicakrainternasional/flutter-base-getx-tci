@@ -110,7 +110,7 @@ class AliceGetConnect {
     }
   }
 
-  void onResponse(Response response) {
+  void onResponse(Request request, Response response) {
     var httpResponse = AliceHttpResponse();
     httpResponse.status = response.statusCode ?? 0;
     if (response.body == null) {
@@ -129,7 +129,7 @@ class AliceGetConnect {
 
     _aliceCore.addResponse(
       httpResponse,
-      _getRequestHashCode(response.request!),
+      _getRequestHashCode(request),
     );
   }
 

@@ -43,7 +43,7 @@ class LoggerInterceptor implements BaseInterceptor {
       'RESPONSE UNAUTHORIZED:': response.unauthorized,
     };
     logger.i(message);
-    alice.onResponse(response);
+    alice.onResponse(request, response);
 
     return response;
   }

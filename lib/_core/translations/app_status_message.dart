@@ -130,7 +130,7 @@ class AppStatusMessage{
     "511": "The client must authenticate to gain access to the network.",
   };
   static const translation = {
-    'en_US': AppStatusMessage.en,
-    'id_ID': AppStatusMessage.id,
+    'en_US': en,
+    'id_ID': id,
   };
 }

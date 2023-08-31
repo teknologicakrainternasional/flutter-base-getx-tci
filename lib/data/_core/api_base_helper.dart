@@ -3,7 +3,6 @@ import 'package:base_flutter_tci/_core/constants/app_flavor.dart';
 import 'package:base_flutter_tci/data/_core/app_exceptions.dart';
 import 'package:base_flutter_tci/data/_core/interceptors/base_interceptor.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/http.dart';
 
 class ApiBaseHelper {
   final GetHttpClient client;
@@ -20,21 +19,26 @@ class ApiBaseHelper {
     }
   }
 
-  Future<dynamic> getApi(String url, {Map<String, String>? query}) async {
+  Future getApi(String url, {Map<String, String>? query}) async {
     final response = await client.get(url, query: query);
-    if (response.isOk) {
-      return response.body;
-    } else {
-      throw AppException.network(response.statusCode);
-    }
+    return _handleResponse(response);
   }
 
-  Future<dynamic> postApi(
+  Future postApi(
     String url,
     Map<String, dynamic> body, {
     Map<String, String>? query,
+    bool isFormData = false,
   }) async {
-    final response = await client.post(url, body: body, query: query);
+    final response = await client.post(
+      url,
+      body: isFormData ? FormData(body) : body,
+      query: query,
+    );
+    return _handleResponse(response);
+  }
+
+  dynamic _handleResponse(Response response) {
     if (response.isOk) {
       return response.body;
     } else {

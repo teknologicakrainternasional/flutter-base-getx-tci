@@ -31,7 +31,7 @@ class LoginController extends GetxController {
     final password = PasswordInput.dirty(value);
     _loginForm.value = loginForm.copyWith(password: password);
     if(loginForm.isNotValid){
-      errors['password'] = loginForm.password.displayError?[0];
+      errors['password'] = loginForm.password.displayError;
     }
   }
 

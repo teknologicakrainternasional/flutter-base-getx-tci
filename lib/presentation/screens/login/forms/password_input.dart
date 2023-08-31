@@ -2,38 +2,37 @@ import 'package:base_flutter_tci/_core/constants/app_validation.dart';
 import 'package:formz/formz.dart';
 import 'package:get/get.dart';
 
-class PasswordInput extends FormzInput<String, List<String>> {
+class PasswordInput extends FormzInput<String, String> {
   const PasswordInput.pure() : super.pure('');
 
   const PasswordInput.dirty(String value) : super.dirty(value);
 
   @override
-  List<String>? validator(String value) {
-    final validationItem = <String>[];
+  String? validator(String value) {
     if (value.length < 6) {
-      validationItem.add(AppValidation.characterLength.trParams({
+      return AppValidation.characterLength.trParams({
         'field': 'Password',
         'length': '6',
-      }));
+      });
     }
-    /*if (!value.contains(RegExp(r'[A-Z]'))) {
-      validationItem.add(AppValidation.containUppercase.trParams({
+    if (!value.contains(RegExp(r'[A-Z]'))) {
+      AppValidation.containUppercase.trParams({
         'field': 'Password',
         'number': '1',
-      }));
+      });
     }
     if (!value.contains(RegExp(r'[0-9]'))) {
-      validationItem.add(AppValidation.containNumber.trParams({
+      AppValidation.containNumber.trParams({
         'field': 'Password',
         'number': '1',
-      }));
+      });
     }
     if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      validationItem.add(AppValidation.containSymbol.trParams({
+      AppValidation.containSymbol.trParams({
         'field': 'Password',
         'number': '1',
-      }));
-    }*/
-    return validationItem.isNotEmpty ? validationItem : null;
+      });
+    }
+    return null;
   }
 }

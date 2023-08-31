@@ -56,12 +56,12 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
 
   @override
   Future<void> storeUser(UserModel user) {
-    return Future(() => storage.write(AppConstant.kUser, user.toJson()));
+    return storage.write(AppConstant.kUser, user.toJson());
   }
 
   @override
   Future<void> deleteUser() {
-    return Future(() => storage.remove(AppConstant.kUser));
+    return storage.remove(AppConstant.kUser);
   }
 
   @override
@@ -80,12 +80,12 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
 
   @override
   Future<void> storeToken(String token) {
-    return Future(() => storage.write(AppConstant.kToken, token));
+    return storage.write(AppConstant.kToken, token);
   }
 
   @override
   Future<void> deleteToken() {
-    return Future(() => storage.remove(AppConstant.kToken));
+    return storage.remove(AppConstant.kToken);
   }
 
   @override

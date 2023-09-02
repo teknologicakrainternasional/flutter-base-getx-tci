@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:base_flutter_tci/_core/constants/app_constant.dart';
 import 'package:base_flutter_tci/_core/utils/alice_get_connect.dart';
@@ -14,12 +15,7 @@ class LoggerInterceptor implements BaseInterceptor {
 
   @override
   FutureOr<Request> requestInterceptor(Request request) async {
-    var message = {
-      'REQUEST URL:': request.url,
-      'REQUEST HEADER:': request.headers,
-      'REQUEST METHOD:': request.method,
-      'REQUEST BODY:': await request.getBody(),
-    };
+    var message = await _getRequestMap(request);
 
     logger.i(message);
     alice.onRequest(
@@ -46,14 +42,26 @@ class LoggerInterceptor implements BaseInterceptor {
     return response;
   }
 
-  _onConnectionTimeout(Request request) async {
+  Future<Map<String, dynamic>> _getRequestMap(Request request) async{
     var message = {
       'REQUEST URL:': request.url,
       'REQUEST HEADER:': request.headers,
       'REQUEST METHOD:': request.method,
-      'REQUEST BODY:': await request.getBody(),
-      'REQUEST TIMEOUT:': true,
     };
+    final body = await request.getBody();
+    if(body != null && body.isNotEmpty){
+      try{
+        message['REQUEST BODY'] = json.decode(body);
+      }catch(e, s){
+        logger.e(_getRequestMap, error: e, stackTrace: s);
+      }
+    }
+    return message;
+  }
+
+  _onConnectionTimeout(Request request) async {
+    final message = await _getRequestMap(request);
+    message['REQUEST TIMEOUT'] = true;
     logger.w(message);
   }
 }

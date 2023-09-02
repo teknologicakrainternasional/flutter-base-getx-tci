@@ -164,14 +164,12 @@ class AliceGetConnect {
 }
 
 extension GetConnectRequestX on Request{
-  Future<dynamic> getBody() async{
+  Future<String?> getBody() async{
     if (method.toLowerCase() == 'post') {
       if (contentType.contains('multipart/form-data')) {
         return 'Form Data';
-      } else if (contentType.contains('application/json')) {
+      } else{
         return utf8.decode(await bodyBytes.toBytes());
-      } else {
-        return await bodyBytes.bytesToString();
       }
     }
     return null;

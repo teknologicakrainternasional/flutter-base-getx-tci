@@ -30,9 +30,13 @@ class ApiBaseHelper {
     Map<String, String>? query,
     bool isFormData = false,
   }) async {
+    bool useFormData = isFormData;
+    if (body.containMultipartFile()) {
+      useFormData = true;
+    }
     final response = await client.post(
       url,
-      body: isFormData ? FormData(body) : body,
+      body: useFormData ? FormData(body) : body,
       query: query,
     );
     return _handleResponse(response);
@@ -44,5 +48,16 @@ class ApiBaseHelper {
     } else {
       throw AppException.network(response.statusCode);
     }
+  }
+}
+
+extension MapCheckingX on Map<String, dynamic> {
+  bool containMultipartFile() {
+    for (var value in values) {
+      if (value is MultipartFile) {
+        return true;
+      }
+    }
+    return false;
   }
 }

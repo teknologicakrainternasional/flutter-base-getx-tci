@@ -7,5 +7,5 @@ class AppConstant {
   static const kParsingDataCode = "parsing_data_exception";
   static const kConnectionError = "connection_timeout";
 
-  static const kConnectionTimeout = 5000;
+  static const kConnectionTimeout = 30000;
 }

@@ -2,6 +2,7 @@ import 'package:base_flutter_tci/_core/constants/app_constant.dart';
 import 'package:base_flutter_tci/data/_core/app_exceptions.dart';
 import 'package:base_flutter_tci/data/_core/models/response_model.dart';
 import 'package:base_flutter_tci/domain/_core/failures/app_failures.dart' as af;
+import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 extension StatusCodeX on int? {

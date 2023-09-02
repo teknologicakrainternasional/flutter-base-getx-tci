@@ -30,16 +30,34 @@ class ApiBaseHelper {
     Map<String, String>? query,
     bool isFormData = false,
   }) async {
+    final response = await client.post(
+      url,
+      body: _getBody(body, isFormData: isFormData),
+      query: query,
+    );
+    return _handleResponse(response);
+  }
+
+  Future putApi(
+    String url,
+    Map<String, dynamic> body, {
+    Map<String, String>? query,
+    bool isFormData = false,
+  }) async {
+    final response = await client.put(
+      url,
+      body: _getBody(body, isFormData: isFormData),
+      query: query,
+    );
+    return _handleResponse(response);
+  }
+
+  dynamic _getBody(Map<String, dynamic> body, {bool isFormData = false}) {
     bool useFormData = isFormData;
     if (body.containMultipartFile()) {
       useFormData = true;
     }
-    final response = await client.post(
-      url,
-      body: useFormData ? FormData(body) : body,
-      query: query,
-    );
-    return _handleResponse(response);
+    return useFormData ? FormData(body) : body;
   }
 
   dynamic _handleResponse(Response response) {

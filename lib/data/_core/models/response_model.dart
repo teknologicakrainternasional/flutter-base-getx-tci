@@ -24,6 +24,8 @@ class ResponseModel<T> {
       _message = json['message'];
       if (fromJsonData != null) {
         _data = json['data'] != null ? fromJsonData(json['data']) : null;
+      }else{
+        _data = json['data'];
       }
       _meta = json['meta'] != null ? MetaModel.fromJson(json['meta']) : null;
       if (json['errors'] != null) {

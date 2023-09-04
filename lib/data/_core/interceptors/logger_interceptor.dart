@@ -53,7 +53,7 @@ class LoggerInterceptor implements BaseInterceptor {
       try{
         message['REQUEST BODY'] = json.decode(body);
       }catch(e, s){
-        logger.e(_getRequestMap, error: e, stackTrace: s);
+        logger.e("_getRequestMap", error: e, stackTrace: s);
       }
     }
     return message;

@@ -62,6 +62,7 @@ class AliceGetConnect {
     int? timeoutMillisecond,
     Function(Request)? onConnectionTimeout,
   }) async {
+    request.headers['date'] = DateTime.timestamp().toString();
     AliceHttpCall call = AliceHttpCall(_getRequestHashCode(request));
     call.method = request.method;
     call.endpoint = request.url.path;

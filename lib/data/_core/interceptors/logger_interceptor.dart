@@ -1,28 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:base_flutter_tci/_core/constants/app_constant.dart';
-import 'package:base_flutter_tci/_core/utils/alice_get_connect.dart';
+import 'package:alice_get_connect/alice_get_connect.dart';
+import 'package:alice_get_connect/base_interceptor.dart';
 import 'package:base_flutter_tci/_core/utils/logger.dart';
-import 'package:base_flutter_tci/data/_core/interceptors/base_interceptor.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 
 class LoggerInterceptor implements BaseInterceptor {
-  final AliceGetConnect alice;
-
-  LoggerInterceptor(this.alice);
-
   @override
   FutureOr<Request> requestInterceptor(Request request) async {
     var message = await _getRequestMap(request);
-
     logger.i(message);
-    alice.onRequest(
-      request,
-      timeoutMillisecond: AppConstant.kConnectionTimeout,
-      onConnectionTimeout: _onConnectionTimeout,
-    );
     return request;
   }
 
@@ -37,31 +26,29 @@ class LoggerInterceptor implements BaseInterceptor {
       'RESPONSE UNAUTHORIZED:': response.unauthorized,
     };
     logger.i(message);
-    alice.onResponse(request, response);
 
     return response;
   }
 
-  Future<Map<String, dynamic>> _getRequestMap(Request request) async{
+  Future<Map<String, dynamic>> _getRequestMap(Request request) async {
     var message = {
       'REQUEST URL:': request.url,
       'REQUEST HEADER:': request.headers,
       'REQUEST METHOD:': request.method,
     };
     final body = await request.getBody();
-    if(body != null && body.isNotEmpty){
-      try{
-        message['REQUEST BODY'] = json.decode(body);
-      }catch(e, s){
+    if (body != null && body.isNotEmpty) {
+      try {
+        if ((request.headers['content-type'] ?? '')
+            .contains('application/json')) {
+          message['REQUEST BODY'] = json.decode(body);
+        } else {
+          message['REQUEST BODY'] = body;
+        }
+      } catch (e, s) {
         logger.e("_getRequestMap", error: e, stackTrace: s);
       }
     }
     return message;
-  }
-
-  _onConnectionTimeout(Request request) async {
-    final message = await _getRequestMap(request);
-    message['REQUEST TIMEOUT'] = true;
-    logger.w(message);
   }
 }

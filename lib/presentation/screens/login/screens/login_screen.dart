@@ -24,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           children: [
             Obx(() => TextFormField(
+                  controller: _controller.usernameCtrl,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: const InputDecoration(
                     hintText: 'Username',
@@ -36,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 )),
             const SizedBox(height: 20),
             Obx(() => TextFormField(
+                  controller: _controller.passwordCtrl,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
                     hintText: 'Password',

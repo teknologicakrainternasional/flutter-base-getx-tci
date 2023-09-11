@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:alice_get_connect/base_interceptor.dart';
 import 'package:base_flutter_tci/_core/constants/app_constant.dart';
-import 'package:base_flutter_tci/data/_core/interceptors/base_interceptor.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:get_storage/get_storage.dart';

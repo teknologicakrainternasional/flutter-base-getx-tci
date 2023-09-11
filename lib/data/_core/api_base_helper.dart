@@ -1,7 +1,7 @@
+import 'package:alice_get_connect/base_interceptor.dart';
 import 'package:base_flutter_tci/_core/constants/app_constant.dart';
 import 'package:base_flutter_tci/_core/constants/app_flavor.dart';
 import 'package:base_flutter_tci/data/_core/app_exceptions.dart';
-import 'package:base_flutter_tci/data/_core/interceptors/base_interceptor.dart';
 import 'package:get/get.dart';
 
 class ApiBaseHelper {

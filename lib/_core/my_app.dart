@@ -1,7 +1,8 @@
+import 'package:alice_get_connect/alice_get_connect.dart';
+import 'package:base_flutter_tci/_core/constants/app_constant.dart';
 import 'package:base_flutter_tci/_core/constants/app_page.dart';
 import 'package:base_flutter_tci/_core/initial_binding.dart';
 import 'package:base_flutter_tci/_core/translations/_app_translation.dart';
-import 'package:base_flutter_tci/_core/utils/alice_get_connect.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -20,7 +21,11 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     //INIT ALICE
     alice = Get.put(
-      AliceGetConnect(),
+      AliceGetConnect(
+        timeout: const Duration(
+          milliseconds: AppConstant.kConnectionTimeout,
+        ),
+      ),
       permanent: true,
     );
     super.initState();

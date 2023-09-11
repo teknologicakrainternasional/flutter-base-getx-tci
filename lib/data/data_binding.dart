@@ -1,3 +1,4 @@
+import 'package:alice_get_connect/alice_get_connect.dart';
 import 'package:base_flutter_tci/data/_core/api_base_helper.dart';
 import 'package:base_flutter_tci/data/_core/interceptors/auth_interceptor.dart';
 import 'package:base_flutter_tci/data/_core/interceptors/logger_interceptor.dart';
@@ -16,7 +17,8 @@ class DataBinding extends Bindings {
         client: GetConnect().httpClient,
         interceptors: [
           AuthInterceptor(Get.find()),
-          LoggerInterceptor(Get.find()),
+          LoggerInterceptor(),
+          Get.find<AliceGetConnect>()
         ],
       ),
       permanent: true,

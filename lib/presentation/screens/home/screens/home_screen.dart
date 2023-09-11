@@ -7,11 +7,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authController = Get.find<AuthController>();
     return Scaffold(
       appBar: AppBar(
         title: Obx(
           () => Text(
-            "Hi, ${Get.find<AuthController>().user?.personalData.name}",
+            "Hi, ${authController.user?.personalData.name}",
             style: Get.textTheme.titleLarge,
           ),
         ),
@@ -22,7 +23,7 @@ class HomeScreen extends StatelessWidget {
             Get.defaultDialog(
               title: "Confirmation",
               content: const Text("Are you sure want to logout?"),
-              onConfirm: Get.find<AuthController>().logout,
+              onConfirm: authController.logout,
               onCancel: () {},
               radius: 10,
             );
